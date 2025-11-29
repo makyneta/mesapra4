@@ -1,0 +1,205 @@
+<header id="main-header" class="w-full fixed top-0 left-0 right-0 z-50 flex justify-between items-center"
+    style="padding: 0.75rem 1rem; background: rgba(8, 10, 12, 0.3) !important; color: #fff; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,0.04); box-shadow: 0 4px 20px rgba(0,0,0,0.45);">
+
+    <style>
+        /* Header link system: professional, accessible, bottom-to-top fill */
+        /* Make header use a fixed height and remove vertical padding so link fills reach top/bottom */
+        #main-header { padding: 0 1rem !important; height: 64px; }
+        @media (max-width: 767px) { #main-header { height: auto; padding: 0.75rem 1rem !important; } }
+        .header-brand { color: #fff; text-decoration: none; letter-spacing: 0.03em; }
+
+        .header-nav { gap: 1.5rem; display: flex; align-items: center; height: 100%; }
+
+        .nav-link, .nav-btn { color: #e5e7eb; text-decoration: none; font-size: 0.95rem; font-weight: 600; padding: 0 0.75rem; border-radius: 0; position: relative; overflow: visible; display: flex; align-items: center; gap: 0.4rem; background: transparent; transition: color 0.25s ease, transform 0.15s ease; height: 100%; }
+
+        .nav-link span, .nav-btn span { position: relative; z-index: 2; display: inline-block; }
+
+        .nav-link::before, .nav-btn::before {
+            content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.500), rgba(0, 0, 0, 0.500)); transform-origin: top; transform: scaleY(0); transition: transform 1.00s cubic-bezier(.2,.9,.2,1); z-index: 1;
+        }
+
+        .nav-link:hover::before, .nav-link:focus-visible::before, .nav-btn:hover::before, .nav-btn:focus-visible::before { transform: scaleY(1); }
+        .nav-link:hover, .nav-link:focus-visible, .nav-btn:hover, .nav-btn:focus-visible { color: #ffffff; outline: none; }
+
+        /* Make the desktop links look like text (no button) while keeping the bottom-to-top fill */
+        .nav-link, .nav-btn { padding: 0 0.75rem; border-radius: 0; }
+        /* ensure pseudo-element covers entire header height */
+        .nav-link::before, .nav-btn::before { height: auto; }
+
+        .nav-btn { border: none; background: transparent; cursor: pointer; }
+        .nav-btn svg { transition: transform .28s ease; }
+        .nav-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+        .dropdown-menu { background: rgba(20,24,28,0.95); border: none; border-radius: 0; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); box-shadow: 0 8px 24px rgba(0,0,0,0.5); padding: 0; min-width: 11rem; }
+
+        .dropdown-link { display: block; padding: 0.65rem 1rem; color: #e5e7eb; text-decoration: none; font-size: 0.9rem; font-weight: 500; border-radius: 0; position: relative; overflow: hidden; transition: color 0.22s ease; }
+        .dropdown-link::before { content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: linear-gradient(to bottom, rgba(255,255,255,0.08), rgba(255,255,255,0.08)); transform-origin: top; transform: scaleY(0); transition: transform 0.25s cubic-bezier(.2,.9,.2,1); z-index: 0; }
+        .dropdown-link span { position: relative; z-index: 1; }
+        .dropdown-link:hover::before, .dropdown-link:focus-visible::before { transform: scaleY(1); }
+        .dropdown-link:hover, .dropdown-link:focus-visible { color: #ffffff; }
+
+        /* Mobile menu link polish - match desktop style with bottom-to-top animation */
+        .mobile-link { display: flex; align-items: center; width: 100%; padding: 1rem 1.5rem; color: #e5e7eb; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.02); transition: color 0.25s ease; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.005em; position: relative; overflow: hidden; }
+        .mobile-link::before { content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: linear-gradient(to top, rgba(255,255,255,0.08), rgba(255,255,255,0.08)); transform-origin: bottom; transform: scaleY(0); transition: transform 0.32s cubic-bezier(.2,.9,.2,1); z-index: 0; }
+        .mobile-link span { position: relative; z-index: 1; }
+        .mobile-link:hover::before { transform: scaleY(1); }
+        .mobile-link:hover, .mobile-link:focus { color: #ffffff; outline: none; }
+        
+        /* Responsive fallback: if Tailwind isn't present, explicitly hide/show modules */
+        .md-hidden { display: none; }
+        @media (max-width: 767px) {
+            .header-nav { display: none !important; }
+            .md-hidden { display: block !important; }
+        }
+
+        @media (min-width: 768px) {
+            /* mobile menu and backdrop should not be visible on desktop */
+            #mobile-menu, #mobile-menu-backdrop { display: none !important; }
+        }
+    </style>
+
+    <a href="/" class="text-2xl font-semibold header-brand"></a>
+    
+    <nav class="hidden md:flex items-center header-nav">
+        <a href="#sobre" class="nav-link"><span>Sobre</span></a>
+        <a href="#datas" class="nav-link"><span>Datas</span></a>
+        <a href="#info" class="nav-link"><span>Info</span></a>
+        <a href="#galeria" class="nav-link"><span>Galeria</span></a>
+        <a href="#contacto" class="nav-link"><span>Contacto</span></a>
+    </nav>
+
+    <div class="md:hidden">
+        <button id="hamburger-button" class="text-white p-2 focus:outline-none rounded transition duration-300 hover:bg-gray-700">
+            <svg id="menu-open-icon" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <svg id="menu-close-icon" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+    </div>
+
+<div id="mobile-menu-backdrop" 
+     class="fixed inset-0 z-40 md:hidden invisible opacity-0 transition-opacity duration-300" 
+     style="background-color: rgba(0, 0, 0, 0.45);">
+</div>
+
+<nav id="mobile-menu" 
+     class="fixed top-0 right-0 h-screen w-full md:hidden transform translate-x-full transition-transform duration-300 ease-in-out z-50" 
+     style="background: rgba(8, 10, 12, 0.85); /* Fundo semi-transparente */ 
+            padding: 0; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; 
+            /* EFEITO BLUR: A chave para o "Vidro Fosco" */
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);">
+
+    <div style="width:100%; 
+                padding: 1.25rem 1.5rem; /* Aumentar o padding para mais profissionalismo */
+                display: flex; 
+                justify-content: space-between; 
+                align-items: center; 
+                background: rgba(8, 10, 12, 0.6); /* Transparência ligeiramente menor que o corpo */
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
+                flex-shrink: 0;">
+        
+        <div>
+            <h1 style="color: #ffffff; 
+                        font-size: 1.25rem; /* Texto maior no mobile */
+                        font-weight: 800; 
+                        margin: 0; 
+                        letter-spacing: -0.02em;"></h1>
+        </div>
+        
+        <button id="close-menu-sidebar-button" 
+                style="background: rgba(255, 255, 255, 0.1); 
+                       border: none; /* Simplificado */
+                       color: white; 
+                       padding: 0.75rem; 
+                       border-radius: 0.75rem; 
+                       cursor: pointer; 
+                       display: flex; 
+                       align-items: center; 
+                       justify-content: center; 
+                       width: 2.8rem; 
+                       height: 2.8rem; 
+                       font-size: 1.2rem; /* Ícone de fechar maior */
+                       transition: background 0.18s ease, transform 0.18s ease;">
+            ✕
+        </button>
+    </div>
+
+    <div style="flex: 1; 
+                overflow-y: auto; 
+                padding: 1.5rem 0; 
+                /* O background linear é removido para depender mais do blur */
+                background: transparent;">
+        
+        <a href="#sobre" 
+           style="display: block; 
+                  padding: 1rem 1.5rem; /* Padding generoso */
+                  color: #ffffff; 
+                  font-size: 1.15rem; /* Tamanho de fonte ideal para mobile */
+                  font-weight: 600; 
+                  text-decoration: none; 
+                  border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Linha divisória suave */
+                  transition: background-color 0.2s ease, color 0.2s ease;" 
+           onmouseover="this.style.backgroundColor='rgba(59, 130, 246, 0.1)'" 
+           onmouseout="this.style.backgroundColor='transparent'">
+            <span>Sobre</span>
+        </a>
+        
+        <a href="#datas" 
+           style="display: block; 
+                  padding: 1rem 1.5rem; 
+                  color: #ffffff; 
+                  font-size: 1.15rem; 
+                  font-weight: 600; 
+                  text-decoration: none; 
+                  border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+                  transition: background-color 0.2s ease, color 0.2s ease;" 
+           onmouseover="this.style.backgroundColor='rgba(59, 130, 246, 0.1)'" 
+           onmouseout="this.style.backgroundColor='transparent'">
+            <span>Datas</span>
+        </a>
+        
+        <a href="#info" 
+           style="display: block; 
+                  padding: 1rem 1.5rem; 
+                  color: #ffffff; 
+                  font-size: 1.15rem; 
+                  font-weight: 600; 
+                  text-decoration: none; 
+                  transition: background-color 0.2s ease, color 0.2s ease;"
+           onmouseover="this.style.backgroundColor='rgba(59, 130, 246, 0.1)'" 
+           onmouseout="this.style.backgroundColor='transparent'">
+            <span>Info</span>
+        </a>
+        
+        <a href="#galeria" 
+           style="display: block; 
+                  padding: 1rem 1.5rem; 
+                  color: #ffffff; 
+                  font-size: 1.15rem; 
+                  font-weight: 600; 
+                  text-decoration: none; 
+                  transition: background-color 0.2s ease, color 0.2s ease;"
+           onmouseover="this.style.backgroundColor='rgba(59, 130, 246, 0.1)'" 
+           onmouseout="this.style.backgroundColor='transparent'">
+            <span>Galeria</span>
+        </a>
+        
+        <a href="#contacto" 
+           style="display: block; 
+                  padding: 1rem 1.5rem; 
+                  color: #ffffff; 
+                  font-size: 1.15rem; 
+                  font-weight: 600; 
+                  text-decoration: none; 
+                  transition: background-color 0.2s ease, color 0.2s ease;"
+           onmouseover="this.style.backgroundColor='rgba(59, 130, 246, 0.1)'" 
+           onmouseout="this.style.backgroundColor='transparent'">
+            <span>Contacto</span>
+        </a>
+        
+    </div>
+</nav>
+</header>
