@@ -13,6 +13,41 @@
     <link rel="stylesheet" href="assets/styles/main.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="assets/scripts/script.js"></script>
+    <script>
+        // Data de destino
+        const dataFinal = new Date("January 18, 2026 17:30:00").getTime();
+
+        // Atualizar o contador a cada 1 segundo
+        const x = setInterval(function() {
+
+            // Obter a data e hora atual
+            const agora = new Date().getTime();
+
+            // Calcular a diferença entre a data final e a atual
+            const distancia = dataFinal - agora;
+
+            // Calcular dias, horas, minutos e segundos restantes
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            // Exibir o resultado no elemento com id="contador"
+            document.getElementById("contador").innerHTML = dias + "d " + horas + "h "
+            + minutos + "m " + segundos + "s ";
+
+            // Se a contagem chegar a zero, parar o contador
+            if (distancia < 0) {
+                clearInterval(x);
+                document.getElementById("contador").innerHTML = "";
+            }
+        }, 1000);
+    </script>
+    <style>
+        .contador {
+            font-weight: bold;
+        }
+    </style>
     <title>Mesa P'ra 4 | A Mentira Também Se Serve Fria</title>
 </head>
 
@@ -96,7 +131,7 @@
             </h2>
 
             <div class="text-center bg-indigo-50 border-l-8 border-indigo-600 p-6 rounded-lg shadow-xl mb-10">
-                <p class="text-lg font-medium text-gray-800">Próxima Atuação</p>
+                <p class="text-lg font-medium text-gray-800">Próxima Atuação<br><span class="contador" id="contador"></span></p>
                 <p class="text-4xl font-extrabold text-indigo-800 mt-2 mb-2">Dom, 18 de Janeiro | 17h30</p>
                 <p class="text-xl text-gray-700">Teatro José Lúcio da Silva (Leiria)</p>
             </div>
